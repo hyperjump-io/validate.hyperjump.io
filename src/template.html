@@ -17,6 +17,28 @@
          lazily loaded when it precaches secondary pages -->
     %sapper.styles%
 
+    <script>
+      const fetchStub = (function () {
+        const stubs = {};
+
+        const nativeFetch = fetch;
+        window.fetch = (url, options) => {
+          if (url in stubs) {
+            const response = new Response(stubs[url].content, {
+              headers: { "content-type": stubs[url].contentType }
+            });
+            return Promise.resolve(response);
+          }
+
+          return nativeFetch(url, options);
+        };
+
+        return {
+          set: (url, content, contentType) => stubs[url] = { content, contentType }
+        }
+      }());
+    </script>
+
     <!-- This contains the contents of the <svelte:head> component, if
          the current page has one -->
     %sapper.head%
