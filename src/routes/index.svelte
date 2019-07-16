@@ -3,23 +3,26 @@
   import Validation from "@hyperjump/validation";
 
 
-  let validation = "";
+  let validation = `{
+  "$meta": { "$href": "https://validation.hyperjump.io/common" },
+  "type": "object"
+}`;
   const validationUrl = "https://mock.hyperjump.io/validation";
 
   $: validate = (async function () {
-    if (validation !== "") {
-      fetchStub.set(validationUrl, validation, "application/reference+json");
+    if (typeof fetchStub !== "undefined" && validation !== "") {
+      fetchStub.set(validationUrl, validation, "application/validation+json");
 
       const doc = Hyperjump.get(validationUrl, Hyperjump.nil);
       return Validation.validate(doc);
     }
   }());
 
-  let subject = "";
+  let subject = "{}";
   const subjectUrl = "https://mock.hyperjump.io/subject";
 
   $: result = (async function () {
-    if (subject !== "") {
+    if (typeof fetchStub !== "undefined" && subject !== "") {
       fetchStub.set(subjectUrl, subject, "application/reference+json");
 
       const doc = Hyperjump.get(subjectUrl, Hyperjump.nil);
@@ -40,13 +43,13 @@
 	<title>Hyperjump Validation</title>
 </svelte:head>
 
+<h1>Hyperjump Validation</h1>
+
 <main>
-  <h1>Hyperjump Validation</h1>
-  <div class="foo">
-    <div class="bar">
+    <section>
       <h2>Validation</h2>
-      <textarea name="validation" bind:value={validation}></textarea>
-      <pre class="results">
+      <textarea aria-label="Validation" bind:value={validation}></textarea>
+      <pre>
         {#await validate then v}
           {#if v}
             Valid
@@ -55,11 +58,11 @@
           {Array.isArray(error) ? JSON.stringify(error, null, "  ") : error}
         {/await}
       </pre>
-    </div>
-    <div class="bar">
+    </section>
+    <section>
       <h2>Subject</h2>
-      <textarea name="subject" bind:value={subject}></textarea>
-      <pre class="results">
+      <textarea aria-label="Subject" bind:value={subject}></textarea>
+      <pre>
         {#await result then r}
           {#if r}
             {Validation.isValid(r) ? "Valid" : JSON.stringify(r, null, "  ")}
@@ -68,27 +71,26 @@
           {error}
         {/await}
       </pre>
-    </div>
-  </div>
+    </section>
 </main>
 
 <style>
-  .foo {
+  main {
     display: flex;
     height: 100%;
-    width: 100%;
   }
 
-  .bar {
+  section {
     display: flex;
     width: 100%;
     flex-direction: column;
     padding: 1em;
   }
 
-  .results {
+  pre {
     border: thin solid black;
     padding: .5em;
+    margin: 0;
     min-height: 100px;
     overflow: scroll;
   }
