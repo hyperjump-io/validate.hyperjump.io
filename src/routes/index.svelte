@@ -40,41 +40,45 @@
 </script>
 
 <svelte:head>
-	<title>Hyperjump Validation</title>
+  <title>Hyperjump Validate</title>
 </svelte:head>
 
-<h1>Hyperjump Validation</h1>
+<h1>Hyperjump Validate</h1>
 
 <main>
-    <section>
-      <h2>Validation</h2>
-      <textarea aria-label="Validation" bind:value={validation}></textarea>
-      <pre>
-        {#await validate then v}
-          {#if v}
-            Valid
-          {/if}
-        {:catch error}
-          {Array.isArray(error) ? JSON.stringify(error, null, "  ") : error}
-        {/await}
-      </pre>
-    </section>
-    <section>
-      <h2>Subject</h2>
-      <textarea aria-label="Subject" bind:value={subject}></textarea>
-      <pre>
-        {#await result then r}
-          {#if r}
-            {Validation.isValid(r) ? "Valid" : JSON.stringify(r, null, "  ")}
-          {/if}
-        {:catch error}
-          {error}
-        {/await}
-      </pre>
-    </section>
+  <section>
+    <h2>Validation</h2>
+    <textarea class="editor" bind:value={validation}></textarea>
+    <div class="results">
+      {#await validate then v}
+        {#if v}
+          Valid
+        {/if}
+      {:catch error}
+        {Array.isArray(error) ? JSON.stringify(error, null, "  ") : error}
+      {/await}
+    </div>
+  </section>
+  <section>
+    <h2>Subject</h2>
+    <textarea class="editor" bind:value={subject}></textarea>
+    <div class="results">
+      {#await result then r}
+        {#if r}
+          {Validation.isValid(r) ? "Valid" : JSON.stringify(r, null, "  ")}
+        {/if}
+      {:catch error}
+        {error}
+      {/await}
+    </div>
+  </section>
 </main>
 
 <style>
+  h1 {
+    margin: 1em auto;
+  }
+
   main {
     display: flex;
     height: 100%;
@@ -82,30 +86,24 @@
 
   section {
     display: flex;
-    width: 100%;
+    flex: 1;
     flex-direction: column;
     padding: 1em;
   }
 
-  pre {
+  .editor {
+    height: 100%;
+    min-height: 300px;
+    padding: .5em;
+    margin-bottom: 1em;
+    font-size: 16px;
     border: thin solid black;
+  }
+
+  .results {
     padding: .5em;
     margin: 0;
     min-height: 100px;
-    overflow: scroll;
-  }
-
-  h1 {
-    margin: 1em auto;
-  }
-
-  textarea {
-    display: block;
-    height: 100%;
     border: thin solid black;
-    min-height: 300px;
-    font-size: 16px;
-    padding: .5em;
-    margin-bottom: 1em;
   }
 </style>
