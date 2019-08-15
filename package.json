@@ -12,8 +12,8 @@
   "repository": "github:jdesrosiers/validate.hyperjump.io",
   "licence": "MIT",
   "dependencies": {
-    "@hyperjump/browser": "^0.18.1",
-    "@hyperjump/validation": "^0.14.0",
+    "@hyperjump/browser": "^0.19.0",
+    "@hyperjump/validation": "^0.15.0",
     "compression": "^1.7.1",
     "morgan": "^1.9.1",
     "polka": "^0.5.0",

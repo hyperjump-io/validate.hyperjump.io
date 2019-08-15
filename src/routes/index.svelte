@@ -1,19 +1,20 @@
 <script>
   import Hyperjump from "@hyperjump/browser";
   import Validation from "@hyperjump/validation";
+  import Results from "../components/Results.svelte";
 
 
   let validation = `{
   "$meta": { "$href": "https://validation.hyperjump.io/common" },
   "type": "object"
 }`;
-  const validationUrl = "https://mock.hyperjump.io/validation";
+  const validationUrl = "https://validate.hyperjump.io/validation";
 
   $: validate = (async function () {
     if (typeof fetchStub !== "undefined" && validation !== "") {
       fetchStub.set(validationUrl, validation, "application/validation+json");
 
-      const doc = Hyperjump.get(validationUrl, Hyperjump.nil);
+      const doc = Hyperjump.fetch(validationUrl);
       return Validation.validate(doc);
     }
   }());
@@ -21,11 +22,11 @@
   let subject = "{}";
   const subjectUrl = "https://mock.hyperjump.io/subject";
 
-  $: result = (async function () {
+  $: results = (async function () {
     if (typeof fetchStub !== "undefined" && subject !== "") {
       fetchStub.set(subjectUrl, subject, "application/reference+json");
 
-      const doc = Hyperjump.get(subjectUrl, Hyperjump.nil);
+      const doc = Hyperjump.fetch(subjectUrl);
 
       let v;
       try {
@@ -55,7 +56,11 @@
           Valid
         {/if}
       {:catch error}
-        {Array.isArray(error) ? JSON.stringify(error, null, "  ") : error}
+        {#if Array.isArray(error)}
+          <Results results={error} />
+        {:else}
+          {error}
+        {/if}
       {/await}
     </div>
   </section>
@@ -63,9 +68,13 @@
     <h2>Subject</h2>
     <textarea class="editor" bind:value={subject}></textarea>
     <div class="results">
-      {#await result then r}
+      {#await results then r}
         {#if r}
-          {Validation.isValid(r) ? "Valid" : JSON.stringify(r, null, "  ")}
+          {#if Validation.isValid(r)}
+            Valid
+          {:else}
+            <Results results={r} />
+          {/if}
         {/if}
       {:catch error}
         {error}
