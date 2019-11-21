@@ -1,14 +1,22 @@
 <script>
   export let results;
-
-  $: messages = results
-    .filter(([_, isValid]) => !isValid)
-    .map(([pointer]) => pointer);
 </script>
 
-Invalid
-<ul>
-  {#each messages as message}
-    <li>{message}</li>
-  {/each}
-</ul>
+{#await results}
+  Validating ...
+{:then _}
+  Valid
+{:catch error}
+  {#if Array.isArray(error)}
+    Invalid
+    <ul>
+      {#each error as message}
+        {#if !message.isValid}
+          <li>{message.validationUrl}</li>
+        {/if}
+      {/each}
+    </ul>
+  {:else}
+    {error}
+  {/if}
+{/await}
