@@ -1,7 +1,26 @@
-<!doctype html> <html lang=en-us> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <meta content="Validate Hyperjump documents online" name=Description> <base href=/ > <link href=global.css rel=stylesheet> <link href=manifest.json rel=manifest> <link href=favicon.png rel=icon type=image/png> <link href=client/main.637669398.css rel=stylesheet><link href=client/index.474487ae.css rel=stylesheet> <noscript id=sapper-head-start></noscript><title>Hyperjump Validate</title><noscript id=sapper-head-end></noscript> </head> <body> <div id=sapper> <h1 class=svelte-1j1eq10>Hyperjump Validate</h1> <main class=svelte-1j1eq10> <section class=svelte-1j1eq10> <h2>Validation</h2> <textarea class="svelte-1j1eq10 editor">{
+<!doctype html> <html lang=en-us> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <meta content="Validate Hyperjump documents online" name=Description> <base href=/ > <link href=global.css rel=stylesheet> <link href=solarized-dark.css rel=stylesheet> <link href=manifest.json rel=manifest> <link href=favicon.png rel=icon type=image/png> <link href=client/main.637669398.css rel=stylesheet><link href=client/index.9a9be9da.css rel=stylesheet> <noscript id=sapper-head-start></noscript><title>Hyperjump Validate</title><noscript id=sapper-head-end></noscript> </head> <body class=solarized-dark> <div id=sapper> <h1 class=svelte-1vo0zbq>Hyperjump Validate</h1> <main class=svelte-1vo0zbq> <h2 class=svelte-1vo0zbq>Validation</h2> <div class="svelte-1magugp hyperjump-editor solarized-dark"> <pre class="svelte-1magugp highlighted">
+    <span class="svelte-1magugp grouping">{</span>
+  "<span class="svelte-1magugp property">$meta</span>": <span class="svelte-1magugp grouping">{</span> "<span class="svelte-1magugp property">$href</span>": "<span class="svelte-1magugp string">https://validation.hyperjump.io/common</span>" <span class="svelte-1magugp grouping">}</span>,
+  "<span class="svelte-1magugp property">type</span>": "<span class="svelte-1magugp string">object</span>",
+  "<span class="svelte-1magugp property">properties</span>": <span class="svelte-1magugp grouping">{</span>
+    "<span class="svelte-1magugp property">foo</span>": <span class="svelte-1magugp grouping">{</span> "<span class="svelte-1magugp property">type</span>": "<span class="svelte-1magugp string">number</span>" <span class="svelte-1magugp grouping">}</span>
+  <span class="svelte-1magugp grouping">}</span>,
+  "<span class="svelte-1magugp property">required</span>": <span class="svelte-1magugp grouping">[</span>"<span class="svelte-1magugp string">foo</span>"<span class="svelte-1magugp grouping">]</span>
+<span class="svelte-1magugp grouping">}</span>
+  </pre> <textarea class="svelte-1magugp src">{
   "$meta": { "$href": "https://validation.hyperjump.io/common" },
-  "type": "object"
-}</textarea> <div class="svelte-1j1eq10 results"> </div> </section> <section class=svelte-1j1eq10> <h2>Subject</h2> <textarea class="svelte-1j1eq10 editor">{}</textarea> <div class="svelte-1j1eq10 results"> </div> </section> </main> </div> <script> const fetchStub = (function () {
+  "type": "object",
+  "properties": {
+    "foo": { "type": "number" }
+  },
+  "required": ["foo"]
+}</textarea> </div> <div class="svelte-1vo0zbq results solarized-dark"> Validating ... </div> <h2 class=svelte-1vo0zbq>Subject</h2> <div class="svelte-1magugp hyperjump-editor solarized-dark"> <pre class="svelte-1magugp highlighted">
+    <span class="svelte-1magugp grouping">{</span>
+  "<span class="svelte-1magugp property">foo</span>": "<span class="svelte-1magugp string">bar</span>"
+<span class="svelte-1magugp grouping">}</span>
+  </pre> <textarea class="svelte-1magugp src">{
+  "foo": "bar"
+}</textarea> </div> <div class="svelte-1vo0zbq results solarized-dark"> </div> </main> </div> <script> const fetchStub = (function () {
         const stubs = {};
 
         const nativeFetch = fetch;
@@ -19,4 +38,4 @@
         return {
           set: (url, content, contentType) => stubs[url] = { content, contentType }
         }
-      }()); </script> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');var s=document.createElement("script");try{new Function("if(0)import('')")();s.src="/client/client.00224d02.js";s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@1.0.1.js";s.setAttribute("data-main","/client/client.00224d02.js")}document.head.appendChild(s)</script> 
+      }()); </script> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');var s=document.createElement("script");try{new Function("if(0)import('')")();s.src="/client/client.cfd17ead.js";s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@1.0.1.js";s.setAttribute("data-main","/client/client.cfd17ead.js")}document.head.appendChild(s)</script> 
