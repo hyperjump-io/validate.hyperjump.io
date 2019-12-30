@@ -11,7 +11,7 @@
   }());
 </script>
 
-<div class="hyperjump-editor {theme}">
+<div class="Editor {theme}">
   <pre class="highlighted">
     {#each tokens as token}
       {#if token.type === "grouping"}
@@ -33,18 +33,18 @@
 </div>
 
 <style>
-  .hyperjump-editor {
+  .Editor {
     display: grid;
-    min-height: 200px;
+    box-sizing: border-box;
     height: 100%;
     overflow: scroll;
     border: thin solid;
-    padding: .25em;
-    box-sizing: border-box;
+    font-size: 11pt;
+    resize: both;
   }
 
-  .hyperjump-editor > * {
-    font-size: 11pt;
+  .Editor > * {
+    font-size: inherit;
     white-space: pre;
     padding: 0;
     margin: 0;
@@ -62,8 +62,7 @@
     grid-row-start: 1;
     grid-column-start: 1;
     background-color: transparent;
-    color: transparent;
-    caret-color: var(--text-color);
+    -webkit-text-fill-color: transparent;
     overflow: hidden;
   }
 

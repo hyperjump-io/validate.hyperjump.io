@@ -88,6 +88,12 @@
     height: 90%;
   }
 
+  main :global(.Editor) {
+    min-height: 200px;
+    padding: .25em;
+    resize: none;
+  }
+
   .results {
     border: thin solid;
     overflow: scroll;
