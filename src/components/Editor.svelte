@@ -5,6 +5,8 @@
   export let theme = "solarized-dark";
   export let value = "";
 
+  $: numberOfLines = (value.match(/\n/g) || []).length + 1;
+
   $: tokens = (function () {
     jsonLexer.reset(value);
     return Array.from(jsonLexer);
@@ -12,38 +14,64 @@
 </script>
 
 <div class="Editor {theme}">
-  <pre class="highlighted">
-    {#each tokens as token}
-      {#if token.type === "grouping"}
-        <span class="grouping">{token.value}</span>
-      {:else if token.type === "property"}
-        "<span class="property">{token.value.substring(1, token.value.length - 1)}</span>"
-      {:else if token.type === "string"}
-        "<span class="string">{token.value.substring(1, token.value.length - 1)}</span>"
-      {:else if token.type === "number"}
-        <span class="number">{token.value}</span>
-      {:else if token.type === "literal"}
-        <span class="atom">{token.value}</span>
-      {:else}
-        {token.value}
-      {/if}
+  <div class="line-numbers">
+    {#each [...Array(numberOfLines)] as _, lineNumber}
+    <div>{lineNumber + 1}</div>
     {/each}
-  </pre>
-  <textarea class="src" bind:value={value}></textarea>
+  </div>
+  <div class="editable">
+    <pre class="highlighted">
+      {#each tokens as token}
+        {#if token.type === "grouping"}
+          <span class="grouping">{token.value}</span>
+        {:else if token.type === "property"}
+          "<span class="property">{token.value.substring(1, token.value.length - 1)}</span>"
+        {:else if token.type === "string"}
+          "<span class="string">{token.value.substring(1, token.value.length - 1)}</span>"
+        {:else if token.type === "number"}
+          <span class="number">{token.value}</span>
+        {:else if token.type === "boolean"}
+          <span class="boolean">{token.value}</span>
+        {:else if token.type === "null"}
+          <span class="null">{token.value}</span>
+        {:else}
+          {token.value}
+        {/if}
+      {/each}
+    </pre>
+    <textarea class="src" aria-label="Code Editor" bind:value={value} on:input></textarea>
+  </div>
 </div>
 
 <style>
   .Editor {
-    display: grid;
-    box-sizing: border-box;
-    height: 100%;
-    overflow: scroll;
-    border: thin solid;
+    display: flex;
     font-size: 11pt;
-    resize: both;
+    overflow: scroll;
+    flex-grow: 1;
+    border: var(--editor-border);
+    border-top: none;
   }
 
-  .Editor > * {
+  .line-numbers {
+    padding: var(--editor-padding) 0;
+  }
+
+  .line-numbers > * {
+    text-align: right;
+    padding: 0 var(--editor-padding);
+    border-right: var(--editor-border);
+  }
+
+  .editable {
+    display: grid;
+    width: 100%;
+    resize: none;
+    padding: var(--editor-padding);
+  }
+
+  .editable > * {
+    font-family: monospace;
     font-size: inherit;
     white-space: pre;
     padding: 0;
@@ -82,7 +110,11 @@
     color: var(--number-color);
   }
 
-  .atom {
+  .boolean {
     color: var(--boolean-color);
+  }
+
+  .null {
+    color: var(--null-color);
   }
 </style>

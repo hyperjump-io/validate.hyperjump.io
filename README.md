@@ -13,5 +13,5 @@ The app is deployed to Github Pages from the `gh-pages` branch. The site is
 served through Cloudflare. TODO: Automate deployment
 
 [validate]: https://validate.hyperjump.io
-[validation]: https://github.com/jdesrosiers/hyperjump-validation
-[jref]: https://github.com/jdesrosiers/hyperjump-browser/tree/master/json-reference
+[validation]: https://github.com/hyperjump-io/validation
+[jref]: https://github.com/hyperjump-io/browser/tree/master/json-reference
