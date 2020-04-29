@@ -14,4 +14,4 @@ served through Cloudflare. TODO: Automate deployment
 
 [validate]: https://validate.hyperjump.io
 [validation]: https://github.com/hyperjump-io/validation
-[jref]: https://github.com/hyperjump-io/browser/tree/master/json-reference
+[jref]: https://github.com/hyperjump-io/browser/blob/master/lib/json-reference/README.md
